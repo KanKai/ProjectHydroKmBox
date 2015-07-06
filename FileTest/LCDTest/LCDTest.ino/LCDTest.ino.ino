@@ -56,7 +56,7 @@ void loop() {
   lcd.print("Hydro KM Box");
   lcd.setCursor(0,1);
   lcd.print("By KiceMenIT ^_^");
-  //delay(5000);
-  //lcd.setBacklight(LOW);
-  //delay(1000);
+  delay(5000);
+  lcd.setBacklight(LOW);
+  delay(1000);
 }
