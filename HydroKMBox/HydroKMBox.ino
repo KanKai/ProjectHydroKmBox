@@ -1,4 +1,8 @@
-// Create By JeerawatIT_Innivation
+/* ProjectHydroKMBox
+ * Code By JeerawatIT_EAU
+ * 4/8/2558 
+ * @HydroKMbox v.1
+ */
 #include <Wire.h>
 #include <LCD.h>  //เรียกใช้ไลบราลี่ LCD
 #include <LiquidCrystal_I2C.h>  //เรียกใช้ไลบราลี่ LCD I2C
@@ -8,7 +12,7 @@
 
 #define DHTPIN 2  //กำหนดค่าคงที่ ให้กับตัวแปร DHTPIN ให้เท่ากับขาที่ 2 
 #define DHTTYPE DHT11  //กำหนดค่าคงที่ของ DHT11 ไปเก็บไว้ในตัวแปร DHTTYPE
-int ledPin = A0;  //กำหนดตัวแปรใหกับขาที่ A0 
+int ledPin = A0;  //กำหนดตัวแปรใหกับขาที่ A0  (ไฟแสดงสถานะว่าเครื่องทำงานอยู่)
 int ledPin2 = A1;  //กำหนดตัวแปรใหกับขาที่ A1
 int ledPin3 = A2;  //กำหนดตัวแปรใหกับขาที่ A2
 int ledPin4 = A3;  //กำหนดตัวแปรใหกับขาที่ A3
@@ -64,7 +68,7 @@ void setup()
   pinMode(Relay3, OUTPUT);
   //pinMode(Relay4, OUTPUT);
   //pinMode(StatusController, OUTPUT);
-  digitalWrite(Relay1, HIGH);  // แสดงสถานะว่าพร้อมใช้งาน
+  digitalWrite(Relay1, HIGH);  // แสดงสถานะปิด
   digitalWrite(Relay2, HIGH);
   digitalWrite(Relay3, HIGH);
   //digitalWrite(Relay4, HIGH);
@@ -108,7 +112,7 @@ void loop()
     analogWrite(ledPin, 255);
   }else
   if(temperature>34){
-    Serial.println("Hot Over");  // ถ้าอุณหภูมิเกิน 34
+    Serial.println("Hot Over");  // ถ้าอุณหภูมิเกิน 34 รีเลย์ 1 ทำงาน
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("  < Hot Over >");  // แสดงข้อความ hot Over
@@ -129,7 +133,7 @@ void loop()
     analogWrite(ledPin2, 0);
     digitalWrite(Relay1, HIGH);
   }
-  if(humidity>80){
+  if(humidity>80){      //  ความชื้นสูง รีเลย์ 2 ทำงาน สั่งพัดลมดูดอากาศออก
     Serial.println("Wet");
     lcd.clear();
     lcd.setCursor(0,0);
@@ -151,7 +155,7 @@ void loop()
     analogWrite(ledPin3, 0);
     digitalWrite(Relay2, HIGH);
   }
-  if(temperature<26){
+  if(temperature<26){     //อุณหภูมิต่ำกว่า 26 จะสั่งให้เปิดหลอดไฟให้ความอบอุ่น รีเลย์ 3 ทำงาน
     Serial.println("Cold");
     lcd.clear();
     lcd.setCursor(0,0);
@@ -173,7 +177,7 @@ void loop()
     analogWrite(ledPin4, 0);
     digitalWrite(Relay3, HIGH);
   }
-  if(humidity<30){
+  if(humidity<45){    //ความชื้นต่ำกว่า 45% คืออากาศแห้ง จะสั่งปั๊มน้ำทำงาน(รีเลย์ 1)
     Serial.println("Dry");
     lcd.clear();
     lcd.setCursor(0,0);
